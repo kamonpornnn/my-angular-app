@@ -1,0 +1,20 @@
+.patients-list { padding: 8px; }
+.minimal-card { width: 100%; max-width: none; margin: 8px 0; padding: 12px; box-sizing: border-box; border-radius: 8px; }
+.card-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.card-title { margin:0; font-size:1.1rem; font-weight:600; }
+.card-actions { display:flex; align-items:center; gap:12px; }
+.search-field { width: 260px; }
+.card-body { margin-top:12px; overflow-x: auto; }
+.table { width:100%; min-width: 600px; }
+.mat-header-cell { font-weight:600; }
+
+@media (max-width: 720px) {
+	.minimal-card { padding: 8px; }
+	.search-field { width: 150px; }
+	.table { min-width: 480px; }
+}
+
+@media (max-width: 420px) {
+	.card-head { flex-direction: column; align-items: flex-start; gap:8px; }
+	.search-field { width: 100%; }
+}

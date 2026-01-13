@@ -1,0 +1,49 @@
+<aside [class.collapsed]="collapsed" class="sidebar-container">
+  <!-- Header -->
+  <div class="sidebar-header">
+    <div *ngIf="!collapsed" class="brand">
+      <h2>คลินิกแพทย์แผนจีน</h2>
+      <p>TCM Clinic System</p>
+    </div>
+    <div *ngIf="collapsed" class="brand-icon">
+      <i class="fas fa-clinic-medical"></i>
+    </div>
+    <button class="toggle-btn" (click)="onToggle()">
+      <i [class]="collapsed ? 'fas fa-chevron-right' : 'fas fa-chevron-left'"></i>
+    </button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="sidebar-nav">
+    <a
+      *ngFor="let item of menuItems"
+      [routerLink]="item.route"
+      routerLinkActive="active"
+      class="menu-item"
+      [title]="collapsed ? item.label : ''"
+    >
+      <i [class]="item.icon"></i>
+      <span *ngIf="!collapsed" class="label">{{ item.label }}</span>
+      <span *ngIf="item.badge && !collapsed" class="badge">{{ item.badge }}</span>
+    </a>
+  </nav>
+
+  <!-- User Info -->
+  <div class="sidebar-footer">
+    <div *ngIf="!collapsed" class="user-info">
+      <div class="avatar">
+        <i class="fas fa-user-md"></i>
+      </div>
+      <div class="user-details">
+        <div class="user-role">ผู้ใช้งาน</div>
+        <div class="user-name">{{ currentUser.name }}</div>
+      </div>
+      <button class="logout-btn" (click)="onLogout()">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+    <div *ngIf="collapsed" class="user-icon">
+      <i class="fas fa-user-md"></i>
+    </div>
+  </div>
+</aside>

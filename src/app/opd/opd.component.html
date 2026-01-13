@@ -1,0 +1,149 @@
+<mat-card class="minimal-card">
+	<div class="card-head">
+		<h3>บันทึก OPD Visit</h3>
+	</div>
+
+	<div class="card-body">
+		<form [formGroup]="form" (ngSubmit)="submit()">
+			<div class="grid">
+				<mat-form-field>
+					<mat-label>ผู้ป่วย</mat-label>
+					<input matInput [formControl]="patientSearchControl" [matAutocomplete]="auto" placeholder="ค้นหาชื่อผู้ป่วย">
+					<mat-autocomplete #auto="matAutocomplete" (optionSelected)="onPatientSelected($event)">
+						<mat-option *ngFor="let p of (filteredPatients$ | async)" [value]="p">{{p.first_name}} {{p.last_name}}</mat-option>
+					</mat-autocomplete>
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>วันที่รับบริการ</mat-label>
+					<input matInput [matDatepicker]="picker" formControlName="visit_date">
+					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>ใช้แพ็กเกจ (ถ้ามี)</mat-label>
+					<mat-select formControlName="package_id">
+						<mat-option [value]="null">-- ไม่มี --</mat-option>
+						<mat-option *ngFor="let pkg of packages" [value]="pkg.package_id">{{pkg.package_name}} (คงเหลือ: {{pkg.remaining_sessions}})</mat-option>
+					</mat-select>
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>BP Systolic</mat-label>
+					<input matInput type="number" formControlName="bp_systolic">
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>BP Diastolic</mat-label>
+					<input matInput type="number" formControlName="bp_diastolic">
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>PR</mat-label>
+					<input matInput type="number" formControlName="pr">
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>Temperature (C)</mat-label>
+					<input matInput type="number" formControlName="temperature_c">
+				</mat-form-field>
+
+				<mat-form-field class="full">
+					<mat-label>อาการสำคัญ</mat-label>
+					<input matInput formControlName="chief_complaint">
+				</mat-form-field>
+			</div>
+
+			<div class="actions">
+				<button mat-flat-button color="primary" type="submit">บันทึก</button>
+			</div>
+		</form>
+	</div>
+</mat-card>
+
+<mat-card class="minimal-card packages-list">
+	<mat-card-header>
+		<mat-card-title>แพ็กเกจ</mat-card-title>
+		<mat-card-subtitle>ซื้อให้ผู้ป่วยที่เลือก</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<div class="packages-grid">
+			<mat-card class="pkg" *ngFor="let pkg of packages">
+				<mat-card-title>{{pkg.package_name}}</mat-card-title>
+				<mat-card-subtitle>{{pkg.price | currency:'THB'}}</mat-card-subtitle>
+				<div class="pkg-body">
+					<p class="desc">{{pkg.description}}</p>
+					<p>ครั้งทั้งหมด: {{pkg.total_sessions}} · คงเหลือ: {{pkg.remaining_sessions}}</p>
+					<p *ngIf="pkg.expire_date">หมดอายุ: {{pkg.expire_date | date}}</p>
+				</div>
+				<mat-card-actions>
+					<button mat-stroked-button color="primary" (click)="buyPackage(pkg)">ซื้อ</button>
+				</mat-card-actions>
+			</mat-card>
+		</div>
+	</mat-card-content>
+</mat-card>
+
+<mat-card class="minimal-card">
+	<h3>รายการ OPD Visits</h3>
+	<div class="card-body">
+		<table mat-table [dataSource]="dataSource" class="table" matSort>
+
+			<ng-container matColumnDef="opd_id">
+				<th mat-header-cell *matHeaderCellDef> ID </th>
+				<td mat-cell *matCellDef="let e">{{e.opd_id}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="patient_id">
+				<th mat-header-cell *matHeaderCellDef> ผู้ป่วย </th>
+				<td mat-cell *matCellDef="let e">{{e.patient_id}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="package">
+				<th mat-header-cell *matHeaderCellDef> แพ็กเกจ </th>
+				<td mat-cell *matCellDef="let e">{{ getPackageName(e.package_id) }}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="visit_date">
+				<th mat-header-cell *matHeaderCellDef> วันที่ </th>
+				<td mat-cell *matCellDef="let e">{{e.visit_date | date}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="bp">
+				<th mat-header-cell *matHeaderCellDef> BP </th>
+				<td mat-cell *matCellDef="let e">{{e.bp_systolic}}/{{e.bp_diastolic}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="pr">
+				<th mat-header-cell *matHeaderCellDef> PR </th>
+				<td mat-cell *matCellDef="let e">{{e.pr}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="temp">
+				<th mat-header-cell *matHeaderCellDef> Temp </th>
+				<td mat-cell *matCellDef="let e">{{e.temperature_c}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="pain">
+				<th mat-header-cell *matHeaderCellDef> Pain </th>
+				<td mat-cell *matCellDef="let e">{{e.pain_score}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="chief_complaint">
+				<th mat-header-cell *matHeaderCellDef> Chief </th>
+				<td mat-cell *matCellDef="let e">{{e.chief_complaint}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="status">
+				<th mat-header-cell *matHeaderCellDef> Status </th>
+				<td mat-cell *matCellDef="let e">{{e.status}}</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+		</table>
+
+		<mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+	</div>
+</mat-card>

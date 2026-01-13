@@ -1,0 +1,27 @@
+<div class="layout">
+  <!-- Header -->
+  <header class="header">
+    <button class="layout-toggle" (click)="sidebarCollapsed = !sidebarCollapsed" [class.active]="sidebarCollapsed" aria-label="Toggle sidebar">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <h3 class="app-title">My App</h3>
+  </header>
+
+  <!-- Body -->
+  <div class="body">
+    <!-- Sidebar -->
+    <app-sidebar 
+      class="sidebar"
+      [class.collapsed]="sidebarCollapsed"
+      [collapsed]="sidebarCollapsed"
+      (toggleSidebar)="onSidebarToggle($event)"
+    ></app-sidebar>
+
+    <!-- Main Content -->
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

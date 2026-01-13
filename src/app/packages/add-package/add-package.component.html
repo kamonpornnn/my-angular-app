@@ -1,0 +1,37 @@
+<mat-card class="minimal-card">
+  <div class="card-head"><h3>เพิ่มแพคเกจ</h3></div>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="grid">
+        <mat-form-field>
+          <mat-label>ชื่อแพคเกจ</mat-label>
+          <input matInput formControlName="package_name">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>จำนวนครั้งทั้งหมด</mat-label>
+          <input matInput type="number" formControlName="total_sessions">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>ครั้งที่เหลือ</mat-label>
+          <input matInput type="number" formControlName="remaining_sessions">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>ราคา</mat-label>
+          <input matInput type="number" formControlName="price">
+        </mat-form-field>
+
+        <mat-form-field class="full">
+          <mat-label>คำอธิบาย</mat-label>
+          <input matInput formControlName="description">
+        </mat-form-field>
+
+      </div>
+      <div class="actions">
+        <button mat-flat-button color="primary" type="submit">บันทึก</button>
+      </div>
+    </form>
+  </div>
+</mat-card>

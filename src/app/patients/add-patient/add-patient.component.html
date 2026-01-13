@@ -1,0 +1,76 @@
+<mat-card class="minimal-card">
+  <div class="card-head">
+    <h3>เพิ่มคนไข้ใหม่</h3>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="grid">
+        <mat-form-field appearance="outline">
+          <mat-label>ชื่อ</mat-label>
+          <input matInput formControlName="first_name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>นามสกุล</mat-label>
+          <input matInput formControlName="last_name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>อายุ</mat-label>
+          <input matInput type="number" formControlName="age">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>โทรศัพท์</mat-label>
+          <input matInput formControlName="phone_number">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>บัตรประชาชน</mat-label>
+          <input matInput formControlName="national_id">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>วันเกิด</mat-label>
+          <input matInput type="date" formControlName="date_of_birth">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>น้ำหนัก (kg)</mat-label>
+          <input matInput type="number" formControlName="weight_kg">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>ส่วนสูง (cm)</mat-label>
+          <input matInput type="number" formControlName="height_cm">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>โรคประจำตัว / แพ้ยา</mat-label>
+          <input matInput formControlName="chronic_diseases">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>ประวัติการเจ็บป่วย / ผ่าตัด</mat-label>
+          <input matInput formControlName="illness_history">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>ผู้ติดต่อฉุกเฉิน (ชื่อ)</mat-label>
+          <input matInput formControlName="emergency_contact_first_name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>ผู้ติดต่อฉุกเฉิน (ความสัมพันธ์ / โทร)</mat-label>
+          <input matInput formControlName="emergency_contact_phone">
+        </mat-form-field>
+      </div>
+
+      <div class="actions">
+        <button mat-flat-button color="primary" type="submit">บันทึก</button>
+        <button mat-button type="button" (click)="cancel()">ยกเลิก</button>
+      </div>
+    </form>
+  </div>
+</mat-card>

@@ -1,0 +1,12 @@
+.minimal-card { width: 100%; max-width: none; margin: 8px 0; padding: 12px; box-sizing: border-box; border-radius: 8px; }
+.minimal-card .card-head { margin-bottom: 8px; }
+.minimal-card .card-body { padding-top: 6px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.full { grid-column: 1 / -1; }
+.actions { margin-top: 16px; display:flex; gap:8px; }
+.minimal-card mat-form-field { width: 100%; }
+
+@media (max-width: 640px) {
+	.minimal-card { padding: 8px; }
+	.grid { grid-template-columns: 1fr; }
+}

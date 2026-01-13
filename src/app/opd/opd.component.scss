@@ -1,0 +1,16 @@
+.minimal-card { width:100%; margin:8px 0; padding:12px; box-sizing:border-box; }
+.card-head { display:flex; align-items:center; justify-content:space-between; }
+.card-body { margin-top:8px; }
+.grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:12px; }
+.full { grid-column: 1 / -1; }
+.actions { margin-top:12px; }
+.table { width: 100%; min-width: 600px; overflow: auto; }
+
+.packages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.pkg{padding:12px}
+.pkg .pkg-body{font-size:13px;color:rgba(0,0,0,0.8)}
+
+@media (max-width:640px) {
+  .grid { grid-template-columns: 1fr; }
+  .table { min-width: 420px; }
+}
