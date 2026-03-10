@@ -9,7 +9,7 @@ import { LayoutDefaultComponent } from './shared/layout-default/layout-default.c
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { OpdComponent } from './opd/opd.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Angular Material
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,6 +30,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PermissitonComponent } from './permissiton/permissiton.component';
+import { RoleComponent } from './role/role.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AddPatientComponent,
     PackagesListComponent,
     AddPackageComponent,
+    PermissitonComponent,
+    RoleComponent,
+    LoginComponent,
   ],
   
   
@@ -52,6 +58,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     // Material modules
     MatTableModule,

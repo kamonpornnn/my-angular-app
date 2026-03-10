@@ -8,11 +8,17 @@ import { PatientsListComponent } from './patients/patients-list/patients-list.co
 import { AddPatientComponent } from './patients/add-patient/add-patient.component';
 import { PackagesListComponent } from './packages/packages-list/packages-list.component';
 import { AddPackageComponent } from './packages/add-package/add-package.component';
+import { PermissitonComponent } from './permissiton/permissiton.component';
+import { RoleComponent } from './role/role.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './login/auth.guard';
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   {
     path: '',
     component: LayoutDefaultComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
@@ -21,6 +27,9 @@ const routes: Routes = [
       { path: 'patients/add', component: AddPatientComponent },
       { path: 'packages', component: PackagesListComponent },
       { path: 'packages/add', component: AddPackageComponent },
+      { path: 'permissions', component: PermissitonComponent },
+      { path: 'permissions/:id', component: PermissitonComponent },
+      { path: 'roles', component: RoleComponent }
     ]
   }
 ];

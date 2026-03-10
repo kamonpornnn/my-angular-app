@@ -16,6 +16,7 @@
 
 import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../login/auth.service';
 
 interface MenuItem {
   id: string;
@@ -41,20 +42,23 @@ export class SidebarComponent {
     return this.collapsed;
   }
 
-  currentUser = {
-    name: 'แพทย์หญิง สมหญิง',
-    role: 'แพทย์'
-  };
+  get currentUser() {
+    return this.authService.getCurrentUser() || { name: 'ผู้ใช้งาน' };
+  }
 
   menuItems: MenuItem[] = [
-    { id: 'dashboard', label: 'หน้าหลัก', icon: 'fas fa-home', route: '/dashboard' },
-    { id: 'opd', label: 'คิว OPD', icon: 'fas fa-calendar-alt', route: '/opd', badge: 3 },
-    { id: 'patients', label: 'ผู้ป่วย', icon: 'fas fa-users', route: '/patients' },
-    { id: 'packages', label: 'แพ็กเกจ', icon: 'fas fa-box', route: '/packages' },
-    { id: 'settings', label: 'ตั้งค่า', icon: 'fas fa-cog', route: '/settings' }
+    // { id: 'dashboard', label: 'หน้าหลัก', icon: 'fas fa-home', route: '/dashboard' },
+    // { id: 'opd', label: 'คิว OPD', icon: 'fas fa-calendar-alt', route: '/opd', badge: 3 },
+    // { id: 'patients', label: 'ผู้ป่วย', icon: 'fas fa-users', route: '/patients' },
+    // { id: 'packages', label: 'แพ็กเกจ', icon: 'fas fa-box', route: '/packages' },
+    // { id: 'settings', label: 'ตั้งค่า', icon: 'fas fa-cog', route: '/settings' }
+    { id: 'role', label: 'จัดการสิทธิ์', icon: 'fas fa-home', route: '/roles' },
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   onToggle() {
     this.collapsed = !this.collapsed;
@@ -66,6 +70,7 @@ export class SidebarComponent {
   }
 
   onLogout() {
-    console.log('Logout clicked');
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

@@ -1,0 +1,39 @@
+<div class="permission-container">
+  <h2>จัดการสิทธิ์ - {{ roleName }}</h2>
+  
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ลำดับ</th>
+        <th>เมนู</th>
+        <th>ดู</th>
+        <th>เพิ่ม</th>
+        <th>แก้ไข</th>
+        <th>ลบ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of permissions; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.menu_name }}</td>
+        <td>
+          <input type="checkbox" [(ngModel)]="item.can_view" (change)="onPermissionChange(item)">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="item.can_create" (change)="onPermissionChange(item)">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="item.can_edit" (change)="onPermissionChange(item)">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="item.can_delete" (change)="onPermissionChange(item)">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="actions">
+    <button class="btn btn-primary" (click)="savePermissions()">บันทึก</button>
+    <button class="btn btn-secondary" (click)="goBack()">ย้อนกลับ</button>
+  </div>
+</div>

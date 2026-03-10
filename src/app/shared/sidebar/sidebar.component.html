@@ -2,8 +2,8 @@
   <!-- Header -->
   <div class="sidebar-header">
     <div *ngIf="!collapsed" class="brand">
-      <h2>คลินิกแพทย์แผนจีน</h2>
-      <p>TCM Clinic System</p>
+      <!-- <h2>คลินิกแพทย์แผนจีน</h2>
+      <p>TCM Clinic System</p> -->
     </div>
     <div *ngIf="collapsed" class="brand-icon">
       <i class="fas fa-clinic-medical"></i>
@@ -38,12 +38,13 @@
         <div class="user-role">ผู้ใช้งาน</div>
         <div class="user-name">{{ currentUser.name }}</div>
       </div>
-      <button class="logout-btn" (click)="onLogout()">
+      <button class="logout-btn" (click)="onLogout()" title="ออกจากระบบ">
         <i class="fas fa-sign-out-alt"></i>
+        <span>ออกจากระบบ</span>
       </button>
     </div>
-    <div *ngIf="collapsed" class="user-icon">
-      <i class="fas fa-user-md"></i>
+    <div *ngIf="collapsed" class="user-icon" (click)="onLogout()" title="ออกจากระบบ">
+      <i class="fas fa-sign-out-alt"></i>
     </div>
   </div>
 </aside>

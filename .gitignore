@@ -44,3 +44,16 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Angular cache
+.angular/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Editor directories
+*.swp
+*.swo
+*~
